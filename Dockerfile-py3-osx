@@ -1,7 +1,7 @@
 FROM sickcodes/docker-osx:sonoma
 SHELL ["/bin/bash", "-i", "-c"]
 
-LABEL maintainer="f.batonogov@yandex.ru"
+LABEL maintainer="ozabramovs@gmail.com"
 
 ARG PYINSTALLER_VERSION=6.11.1
 

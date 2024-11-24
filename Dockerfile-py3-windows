@@ -37,6 +37,16 @@ ENV WINEPREFIX=/wine
 ENV PYPI_URL=https://pypi.python.org/
 ENV PYPI_INDEX_URL=https://pypi.python.org/simple
 
+# Install Wine and Winetricks for amd64
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
+      dpkg --add-architecture i386 && \
+      apt-get update -qy && \
+      apt-get install --no-install-recommends -qy $WINE_VERSION winbind cabextract wget && \
+      wget -nv https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks -O /usr/local/bin/winetricks && \
+      chmod +x /usr/local/bin/winetricks; \
+    fi
+
+
 # Python installation
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
       # Install Python using Wine MSI packages

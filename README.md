@@ -1,21 +1,16 @@
 # PyInstaller Docker Images
 
-**Dark-Avenger-Reborn/pyinstaller-linux** and **Dark-Avenger-Reborn/pyinstaller-windows**
+**avengerreborn/pyinstaller-linux** and **avengerreborn/pyinstaller-windows**
 are Docker/Podman containers designed to simplify the process of compiling Python applications into binaries/executables.
 
 ## Container registry
 
 Images available on multiple container registry:
 
-- [hub.docker.com](https://hub.docker.com/u/Dark-Avenger-Reborn)
+- [hub.docker.com](https://hub.docker.com/u/dark-avengerreborn)
 
-  - `Dark-Avenger-Reborn/pyinstaller-windows` / `docker.io/Dark-Avenger-Reborn/pyinstaller-windows`
-  - `Dark-Avenger-Reborn/pyinstaller-linux` / `docker.io/Dark-Avenger-Reborn/pyinstaller-linux`
-
-- [ghcr.io](https://github.com/Dark-Avenger-Reborn?tab=packages&repo_name=docker-pyinstaller)
-
-  - `ghcr.io/Dark-Avenger-Reborn/pyinstaller-windows`
-  - `ghcr.io/Dark-Avenger-Reborn/pyinstaller-linux`
+  - `avengerreborn/pyinstaller-windows` / `docker.io/avengerreborn/pyinstaller-windows`
+  - `avengerreborn/pyinstaller-linux` / `docker.io/avengerreborn/pyinstaller-linux`
 
 
 ## Usage
@@ -34,7 +29,7 @@ For example, in the folder that has your source code, `.spec` file and `requirem
 ```sh
 docker run \
   --volume "$(pwd):/src/" \
-  Dark-Avenger-Reborn/pyinstaller-windows:latest
+  avengerreborn/pyinstaller-windows:latest
 ```
 
 will build your PyInstaller project into `dist/`. The `.exe` file will have the same name as your `.spec` file.
@@ -42,7 +37,7 @@ will build your PyInstaller project into `dist/`. The `.exe` file will have the 
 ```sh
 docker run \
   --volume "$(pwd):/src/" \
-  Dark-Avenger-Reborn/pyinstaller-linux:latest
+  avengerreborn/pyinstaller-linux:latest
 ```
 
 will build your PyInstaller project into `dist/`. The binary will have the same name as your `.spec` file.
@@ -55,7 +50,7 @@ You'll need to pass an environment variable called `SPECFILE` with the path (rel
 docker run \
   --volume "$(pwd):/src/" \
   --env SPECFILE=./main-nogui.spec \
-  Dark-Avenger-Reborn/pyinstaller-linux:latest
+  avengerreborn/pyinstaller-linux:latest
 ```
 
 This will build the executable from the spec file `main-nogui.spec`.
@@ -67,7 +62,7 @@ You'll need to supply a custom command to Docker to install system pacakges. Som
 ```sh
 docker run \
   --volume "$(pwd):/src/" \
-  --entrypoint /bin/sh Dark-Avenger-Reborn/pyinstaller-linux:latest \
+  --entrypoint /bin/sh avengerreborn/pyinstaller-linux:latest \
   -c "apt update -y && apt install -y wget && /entrypoint.sh"
 ```
 
@@ -78,7 +73,7 @@ Replace `wget` with the dependencies / package(s) you need to install.
 ```sh
 docker run \
   --volume "$(pwd):/src/" \
-  Dark-Avenger-Reborn/pyinstaller-linux:latest \
+  avengerreborn/pyinstaller-linux:latest \
   "pyinstaller --onefile your-script.py"
 ```
 
@@ -94,10 +89,10 @@ Yes, by supplying the `PYPI_URL` and `PYPI_INDEX_URL` environment variables that
 
 ## Star History
 
-<a href="https://star-history.com/#Dark-Avenger-Reborn/docker-pyinstaller&Date">
+<a href="https://star-history.com/#avengerreborn/docker-pyinstaller&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Dark-Avenger-Reborn/docker-pyinstaller&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Dark-Avenger-Reborn/docker-pyinstaller&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=avengerreborn/docker-pyinstaller&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=avengerreborn/docker-pyinstaller&type=Date" />
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Dark-Avenger-Reborn/docker-pyinstaller&type=Date" />
  </picture>
 </a>

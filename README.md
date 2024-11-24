@@ -5,8 +5,6 @@ are Docker/Podman containers designed to simplify the process of compiling Pytho
 
 ## Container registry
 
-Images available on multiple container registry:
-
 - [hub.docker.com](https://hub.docker.com/u/dark-darkavengerreborn)
 
   - `darkavengerreborn/pyinstaller-windows` / `docker.io/darkavengerreborn/pyinstaller-windows`

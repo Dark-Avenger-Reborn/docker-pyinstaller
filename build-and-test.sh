@@ -10,6 +10,12 @@ if ! command -v docker &>/dev/null && ! command -v podman &>/dev/null; then
     exit 1
 fi
 
+# Prompt for the image name (container name)
+read -p "Enter container name (e.g., pyinstaller-linux, pyinstaller-windows, pyinstaller-osx): " name
+
+# Prepend the repository name to form the full image name
+image_name="darkavengerreborn/$name"
+
 build_and_run() {
     local build_cmd=$1
     local run_cmd=$2
@@ -21,12 +27,12 @@ build_and_run() {
     if command -v docker &>/dev/null && docker buildx version &>/dev/null; then
         # Use buildx for multi-architecture builds
         $build_cmd buildx create --use  # Initialize buildx builder
-        $build_cmd buildx build --platform "$platforms" -f "$dockerfile" -t pyinstaller_test . --push && \
-        $run_cmd -v "$(pwd)/test:/src/" pyinstaller_test "pyinstaller main.py $pyinstaller_args"
+        $build_cmd buildx build --platform "$platforms" -f "$dockerfile" -t "$image_name" . --push && \
+        $run_cmd -v "$(pwd)/test:/src/" "$image_name" "pyinstaller main.py $pyinstaller_args"
     else
         # Fallback to standard docker build for a single architecture
-        $build_cmd -f "$dockerfile" -t pyinstaller_test . && \
-        $run_cmd -v "$(pwd)/test:/src/" pyinstaller_test "pyinstaller main.py $pyinstaller_args"
+        $build_cmd -f "$dockerfile" -t "$image_name" . && \
+        $run_cmd -v "$(pwd)/test:/src/" "$image_name" "pyinstaller main.py $pyinstaller_args"
     fi
 }
 

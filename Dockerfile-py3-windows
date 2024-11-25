@@ -13,13 +13,15 @@ RUN apt-get update -qy && apt-get install --no-install-recommends -qy \
     apt-transport-https software-properties-common wget gpg-agent \
     build-essential cmake git rename cabextract
 
-# Install Wine and Box86/Box64 for ARM
+# For amd64 platform
 RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
       dpkg --add-architecture i386 && \
       wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key && \
       wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources && \
       apt-get update -qy && apt-get install -qy $WINE_VERSION winbind; \
-# Install Box86 and Box64 for ARM platforms
+    fi
+
+# For ARM platforms
 RUN if [ "$TARGETPLATFORM" = "linux/arm/v7" ] || [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
       apt-get update -qy && apt-get install --no-install-recommends -qy build-essential cmake git; \
       git clone https://github.com/ptitSeb/box86 /tmp/box86 && \

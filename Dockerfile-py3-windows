@@ -19,14 +19,19 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
       wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key && \
       wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources && \
       apt-get update -qy && apt-get install -qy $WINE_VERSION winbind; \
-    elif [ "$TARGETPLATFORM" = "linux/arm/v7" ] || [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
+# Install Box86 and Box64 for ARM platforms
+RUN if [ "$TARGETPLATFORM" = "linux/arm/v7" ] || [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
+      apt-get update -qy && apt-get install --no-install-recommends -qy build-essential cmake git; \
       git clone https://github.com/ptitSeb/box86 /tmp/box86 && \
       cd /tmp/box86 && mkdir build && cd build && \
-      cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo && make -j$(nproc) && make install && \
+      cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo && \
+      make -j$(nproc) && make install; \
       git clone https://github.com/ptitSeb/box64 /tmp/box64 && \
       cd /tmp/box64 && mkdir build && cd build && \
-      cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo && make -j$(nproc) && make install; \
+      cmake .. -DARM_DYNAREC=ON -DCMAKE_BUILD_TYPE=RelWithDebInfo && \
+      make -j$(nproc) && make install; \
     fi
+
 
 # Wine settings
 ENV WINEARCH=win64

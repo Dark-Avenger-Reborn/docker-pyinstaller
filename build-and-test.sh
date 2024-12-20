@@ -16,12 +16,18 @@ read -p "Enter container name (e.g., pyinstaller-linux, pyinstaller-windows, pyi
 # Prepend the repository name to form the full image name
 image_name="darkavengerreborn/$name"
 
+# Set the default platforms depending on the name
+if [[ "$name" == *"linux"* ]]; then
+    platforms="linux/amd64,linux/arm64,linux/arm/v7"  # For Linux targets, use multiple platforms
+else
+    platforms="linux/amd64"  # For non-Linux targets, default to amd64
+fi
+
 build_and_run() {
     local build_cmd=$1
     local run_cmd=$2
     local dockerfile=$3
     local pyinstaller_args=${4:-"--onefile"}
-    local platforms=${5:-"linux/amd64,linux/arm64,linux/arm/v7"}  # Default platforms (amd64, arm64, armv7)
 
     # Check if docker buildx is available
     if command -v docker &>/dev/null && docker buildx version &>/dev/null; then

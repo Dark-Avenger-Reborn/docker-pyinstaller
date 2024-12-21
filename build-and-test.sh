@@ -18,7 +18,7 @@ image_name="darkavengerreborn/$name"
 
 # Set the default platforms depending on the name
 if [[ "$name" == *"linux"* ]]; then
-    platforms="linux/amd64,linux/arm64,linux/arm/v7"  # For Linux targets, use multiple platforms
+    platforms="linux/amd64"  # For Linux targets, use multiple platforms
 else
     platforms="linux/amd64"  # For non-Linux targets, default to amd64
 fi

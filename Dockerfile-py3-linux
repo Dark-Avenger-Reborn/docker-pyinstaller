@@ -1,6 +1,6 @@
 # Use ARG to set the Python version
-ARG PYTHON_VERSION=3.13.0
-FROM python:${PYTHON_VERSION}
+ARG PYTHON_VERSION=3.10.4
+FROM ubuntu:20.04
 
 SHELL ["/bin/bash", "-i", "-c"]
 
